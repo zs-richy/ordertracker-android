@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Ordertracker Android</string>
+    <string name="splash_fragment">Splash</string>
+    <string name="login_fragment">Login</string>
+    <string name="home_fragment">Home</string>
+    <string name="fragment_products">Products</string>
+    <string name="authentication_fragment">Authentication</string>
+    <string name="fragment_registration">Sign up</string>
+    <string name="fragment_cart">Cart</string>
+    <string name="fragment_orders">Orders</string>
+    <string name="fragment_order">Order</string>
+    <string name="fragment_order_detail">Order details</string>
+    <string name="common_order">Order</string>
+    <string name="common_refresh">Refresh</string>
+    <string name="orderdetails_api_load_failed">Failed to load order details</string>
+    <string name="ui_totalprice">Total price: %1$s</string>
+    <string name="common_signup">Sign up</string>
+</resources>

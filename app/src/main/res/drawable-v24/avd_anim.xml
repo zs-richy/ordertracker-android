@@ -1,0 +1,27 @@
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="108dp"
+            android:height="108dp"
+            android:viewportWidth="108"
+            android:viewportHeight="108">
+            <path
+                android:name="path"
+                android:pathData="M 3.302 16.79 L 20.699 16.79 L 20.699 19.015 L 3.302 19.015 Z M 8.555 12.005 C 9.846 11.997 11.103 13.357 12 12.513 C 12.989 11.582 15.028 12.978 15.922 12.978 C 16.814 12.978 17.796 12.233 19.315 12.068 C 20.832 11.902 21.011 13.631 21.725 14.086 C 22.44 14.542 21.636 15.4 20.743 16.006 C 20.157 16.403 18.956 15.497 18.401 14.906 L 18.399 14.903 L 18.401 14.902 C 18.515 14.717 18.466 14.556 18.243 14.469 C 18.019 14.382 18.093 14.558 18.326 14.823 L 18.399 14.903 L 18.361 14.958 C 18.052 15.357 17.026 15.845 15.386 15.984 C 12.885 16.195 12.707 14.841 12.707 14.841 C 12.707 14.841 12.082 15.028 9.939 15.795 C 7.796 16.562 6.992 14.748 6.992 14.748 C 6.992 14.748 5.742 15.587 3.957 15.773 C 2.171 15.959 3.511 14.935 2.706 14.282 C 1.903 13.631 1.636 13.817 2.706 12.607 C 3.778 11.395 4.582 12.607 4.582 12.607 C 4.582 12.607 6.724 12.42 8.154 12.056 C 8.287 12.022 8.421 12.007 8.555 12.005 Z M 11.966 4.985 C 15.839 4.985 19.127 6.442 20.699 8.578 L 20.699 11.21 L 3.302 11.21 L 3.302 8.578 C 4.874 6.442 8.092 4.985 11.966 4.985 Z"
+                android:fillColor="#FFFBFB"/>
+        </vector>
+    </aapt:attr>
+    <target android:name="path">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="fillColor"
+                android:duration="1000"
+                android:valueFrom="#FFFBFB"
+                android:valueTo="#000000"
+                android:valueType="colorType"/>
+        </aapt:attr>
+    </target>
+</animated-vector>
