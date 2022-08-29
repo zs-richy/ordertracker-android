@@ -18,6 +18,7 @@ import hu.unideb.inf.ordertracker_android.databinding.ActivityMainBinding
 import hu.unideb.inf.ordertracker_android.databinding.DrawerHeaderBinding
 import hu.unideb.inf.ordertracker_android.event.AuthFailedEvent
 import hu.unideb.inf.ordertracker_android.fragment.AuthenticationFragmentDirections
+import hu.unideb.inf.ordertracker_android.util.FileUtils
 import hu.unideb.inf.ordertracker_android.util.WidgetUtils
 import hu.unideb.inf.ordertracker_android.viewmodel.UserViewModel
 import org.greenrobot.eventbus.EventBus
@@ -44,6 +45,8 @@ class MainActivity : AppCompatActivity() {
         setupNavigationBar()
 
         setupObservers()
+
+        clearTempFiles()
     }
 
     override fun onStart() {
@@ -108,6 +111,12 @@ class MainActivity : AppCompatActivity() {
             user?.let {
                 navViewHeaderBinding.tvUser.text = it.userName
             }
+        }
+    }
+
+    private fun clearTempFiles() {
+        FileUtils.findDirectory(this, FileUtils.Directory.IMAGES).listFiles()?.forEach { file ->
+            file.delete()
         }
     }
 

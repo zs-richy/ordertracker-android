@@ -11,8 +11,12 @@ object FileUtils {
         IMAGES
     }
 
+    fun findDirectory(context: Context, directory: Directory): File {
+        return File(context.filesDir.path + "/$directory")
+    }
+
     fun findPath(context: Context, directory: Directory, fileName: String): File {
-        var file = File(context.filesDir.path + "/$directory", fileName)
+        var file = File(findDirectory(context, directory), fileName)
 
         return file
     }

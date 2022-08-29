@@ -1,5 +1,6 @@
 package hu.unideb.inf.ordertracker_android.util
 
+import java.time.LocalDateTime
 import java.util.*
 
 
@@ -11,13 +12,10 @@ enum class DateFormat {
 }
 
 
-fun Date.toFormattedString(format: DateFormat): String {
-    val calendar = Calendar.getInstance()
-    calendar.time = this
-
-    val year = calendar.get(Calendar.YEAR)
-    var month: String = Integer.toString(calendar.get(Calendar.MONTH) + 1)
-    var day: String = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH))
+fun LocalDateTime.toFormattedString(format: DateFormat): String {
+    val year = this.year
+    var month: String = this.month.value.toString()
+    var day: String = this.dayOfMonth.toString()
 
     if (Integer.parseInt(month)  < 10) month = "0$month"
     if (Integer.parseInt(day)  < 10) day = "0$day"

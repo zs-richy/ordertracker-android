@@ -4,21 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.snackbar.Snackbar
 import hu.unideb.inf.ordertracker_android.R
 import hu.unideb.inf.ordertracker_android.databinding.FragmentHomeBinding
 import hu.unideb.inf.ordertracker_android.handler.SharedPreferencesHandler
+import hu.unideb.inf.ordertracker_android.util.FileUtils
+import hu.unideb.inf.ordertracker_android.viewmodel.HomeViewModel
 import hu.unideb.inf.ordertracker_android.viewmodel.UserViewModel
+import java.lang.Exception
 
-class HomeFragment: Fragment() {
+class HomeFragment : Fragment() {
 
     val userViewModel: UserViewModel by activityViewModels()
+    val homeViewModel: HomeViewModel by viewModels()
 
     lateinit var binding: FragmentHomeBinding
 
@@ -29,13 +37,11 @@ class HomeFragment: Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
+        binding.homeViewModel = homeViewModel
+
         binding.lifecycleOwner = viewLifecycleOwner
 
-        lifecycleScope.launchWhenStarted {
-            userViewModel.loginState.collect({ state ->
-                Snackbar.make(binding.root, "Welcome! $state :)", 1500).show()
-            })
-        }
+        setupObservers()
 
         return binding.root
     }
@@ -46,9 +52,30 @@ class HomeFragment: Fragment() {
         userViewModel.updateSessionState()
 
         if (userViewModel.user.value?.isTokenValid == true) {
-//            Snackbar.make(binding.root, "Welcome! :)", 1500).show()
+//            Snackbar.make(binding.root, "Welcome back! :)", 1500).show()
         } else {
             handleUserNavigation()
+        }
+    }
+
+    private fun setupObservers() {
+        homeViewModel.welcomeImage.observe(this) { welcomeImage ->
+            welcomeImage?.let {
+                try {
+                    val imageFile =
+                        FileUtils.findPath(requireContext(), FileUtils.Directory.IMAGES, it)
+                    Glide.with(requireContext())
+                        .load(imageFile)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(false)
+                        .placeholder(
+                            ContextCompat.getDrawable(requireContext(), R.drawable.ic_burger)
+                                ?.also { it.setTint(ContextCompat.getColor(requireContext(), R.color.black)) })
+                        .into(binding.ivWelcome)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 

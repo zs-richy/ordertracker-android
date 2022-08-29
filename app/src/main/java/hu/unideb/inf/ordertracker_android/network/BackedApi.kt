@@ -14,8 +14,14 @@ import java.io.IOException
 import okhttp3.logging.HttpLoggingInterceptor
 
 import android.R.string.no
-
-
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
+import java.lang.reflect.Type
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 
 internal class UnauthorizedInterceptor : Interceptor {
@@ -57,9 +63,19 @@ object BackendApi {
             .addInterceptor(loggingInterceptor)
             .build()
 
+        val gson = GsonBuilder().registerTypeAdapter(LocalDateTime::class.java, object: JsonDeserializer<LocalDateTime> {
+            override fun deserialize(
+                json: JsonElement?,
+                typeOfT: Type?,
+                context: JsonDeserializationContext?
+            ): LocalDateTime {
+                return LocalDateTime.parse(json?.asJsonPrimitive?.asString)
+            }
+
+        }).create()
 
         val retrofit = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .baseUrl(BASE_URL)
             .build()

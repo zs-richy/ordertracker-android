@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import hu.unideb.inf.ordertracker_android.R
 import hu.unideb.inf.ordertracker_android.databinding.ListItemCartBinding
 import hu.unideb.inf.ordertracker_android.model.api.Product
@@ -43,6 +44,8 @@ class CartAdapter(
                 FileUtils.findPath(context, FileUtils.Directory.IMAGES, "${item.id}_thumb.jpg")
             Glide.with(context)
                 .load(imageFile)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(false)
                 .placeholder(
                     ContextCompat.getDrawable(context, R.drawable.ic_burger)
                         ?.also { it.setTint(ContextCompat.getColor(context, R.color.black)) })

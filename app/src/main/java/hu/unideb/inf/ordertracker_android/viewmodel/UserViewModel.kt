@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class UserViewModel(application: Application): AndroidViewModel(application) {
 
     val user = MutableLiveData<User?>(null)
-    val loginState = MutableSharedFlow<String>()
+//    val loginState = MutableSharedFlow<String>()
 
     init {
         BackendApi.initRetrofitService()
@@ -24,9 +24,9 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
             BackendApi.token = token
         }
 
-        viewModelScope.launch {
-            loginState.emit("login")
-        }
+//        viewModelScope.launch {
+//            loginState.emit("login")
+//        }
     }
 
     fun clearUserData() {

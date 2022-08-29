@@ -58,7 +58,7 @@ class CartFragment: Fragment() {
                 CartViewModel.PlacingOrderStatus.PLACING -> CustomProgressDialogHandler.createProgressDialog(childFragmentManager, "Placing order")
                 CartViewModel.PlacingOrderStatus.FINISHED -> {
                     CustomProgressDialogHandler.dismissDialog()
-
+                    cartViewModel.placingOrderStatus.value = CartViewModel.PlacingOrderStatus.WAITING
                     cartViewModel.placedOrderId?.let { orderId ->
                         val action = CartFragmentDirections.actionCartFragmentToOrderDetailFragment().setOrderId(orderId)
                         findNavController().navigate(action)

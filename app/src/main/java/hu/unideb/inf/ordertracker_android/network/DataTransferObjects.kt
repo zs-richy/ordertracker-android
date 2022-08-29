@@ -42,6 +42,10 @@ class LoginResponse: BaseResponse() {
     var expires: Long? = null
 }
 
+class WelcomeResponse: BaseResponse() {
+    var message: String? = null
+    var imageData: String? = null
+}
 
 class PlaceOrderRequest {
     var orderItems: HashMap<Long, Int> = hashMapOf()
@@ -58,5 +62,5 @@ class LoginRequest {
 }
 
 class ProductsRequest {
-    var imageType: String? = null
+    var imageType: String? = "THUMBNAIL"
 }

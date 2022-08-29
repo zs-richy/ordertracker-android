@@ -26,4 +26,7 @@ interface BackendApiInterface {
     @GET("/api/order/order/{id}")
     suspend fun getOrderById(@Path("id") orderId: Long): Response<GetOrderByIdResponse>
 
+    @GET("/api/general/welcome")
+    suspend fun getWelcomeMessage(): Response<WelcomeResponse>
+
 }

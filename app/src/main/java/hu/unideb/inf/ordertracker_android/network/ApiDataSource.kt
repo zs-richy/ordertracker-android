@@ -73,10 +73,6 @@ class ApiDataSource() {
         BackendApi.retrofitService.placeOrder(placeOrderRequest)
     }).callFunction()
 
-    suspend fun getOrders() = CustomSuspendCall(Unit, OrdersResponse::class.java, {
-        BackendApi.retrofitService.getOrders()
-    }).callFunction()
-
     suspend fun getOrdersNoJoin() = CustomSuspendCall(Unit, OrdersResponse::class.java, {
         BackendApi.retrofitService.getOrdersNoJoin()
     }).callFunction()
@@ -87,6 +83,11 @@ class ApiDataSource() {
 
     suspend fun signUp(signupRequest: SignupRequest) = CustomSuspendCall(signupRequest, SignupResponse::class.java, {
       BackendApi.retrofitService.signUp(signupRequest)
+    }).callFunction()
+
+
+    suspend fun getWelcomeMessage() = CustomSuspendCall(Unit, WelcomeResponse::class.java, {
+        BackendApi.retrofitService.getWelcomeMessage()
     }).callFunction()
 
 }
