@@ -52,7 +52,7 @@ class LoginFragment: Fragment() {
 
     private fun onUserChanged(user: User?) {
         if (user?.isTokenValid == true) {
-            findNavController().navigate(R.id.action_login_fragment_to_home_fragment)
+            findNavController().navigate(LoginFragmentDirections.actionGlobalToHomeFragment())
         }
     }
 

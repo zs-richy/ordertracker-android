@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import hu.unideb.inf.ordertracker_android.NavigationDirections
 import hu.unideb.inf.ordertracker_android.R
 import hu.unideb.inf.ordertracker_android.databinding.FragmentAuthenticationBinding
 import hu.unideb.inf.ordertracker_android.viewmodel.UserViewModel
@@ -18,6 +20,8 @@ class AuthenticationFragment: Fragment() {
 
     val userViewModel: UserViewModel by activityViewModels()
 
+    var argumentsProcessed = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,11 +30,11 @@ class AuthenticationFragment: Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_authentication, container, false)
 
         binding.btnLogin.setOnClickListener {
-            findNavController().navigate(R.id.login_fragment)
+            findNavController().navigate(AuthenticationFragmentDirections.actionAuthenticationFragmentToLoginFragment())
         }
 
         binding.btnSignup.setOnClickListener {
-            findNavController().navigate(R.id.registration_fragment)
+            findNavController().navigate(AuthenticationFragmentDirections.actionAuthenticationFragmentToRegistrationFragment())
         }
 
         userViewModel.clearUserData()
@@ -41,9 +45,11 @@ class AuthenticationFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (arguments?.get("redirectToLogin") == true) {
-            arguments?.clear()
-            findNavController().navigate(R.id.action_authentication_fragment_to_login_fragment)
+        val args: AuthenticationFragmentArgs by navArgs()
+
+        if (args.redirectToLogin && !argumentsProcessed) {
+            argumentsProcessed = true
+            findNavController().navigate(AuthenticationFragmentDirections.actionAuthenticationFragmentToLoginFragment())
         }
     }
 

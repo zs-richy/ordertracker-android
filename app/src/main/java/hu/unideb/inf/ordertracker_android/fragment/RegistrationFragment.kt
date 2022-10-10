@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import hu.unideb.inf.ordertracker_android.NavigationDirections
 import hu.unideb.inf.ordertracker_android.R
 import hu.unideb.inf.ordertracker_android.databinding.FragmentRegistrationBinding
 import hu.unideb.inf.ordertracker_android.dialog.CustomProgressDialogHandler
@@ -45,7 +46,7 @@ class RegistrationFragment: Fragment() {
                         CustomProgressDialogHandler.createProgressDialog(childFragmentManager, "Registration in progress")
                     RegistrationViewModel.RegistrationStatus.SUCCESS -> {
                         CustomProgressDialogHandler.dismissDialog()
-                        findNavController().navigate(R.id.action_global_to_loginfragment_fragment)
+                        findNavController().navigate(NavigationDirections.actionGlobalToLoginfragmentFragment())
                     }
                     RegistrationViewModel.RegistrationStatus.ERROR -> {
                         CustomProgressDialogHandler.dismissDialog()

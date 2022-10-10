@@ -55,7 +55,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:textSize="18sp"
                 android:textColor="@color/common_google_signin_btn_text_dark"
-                tools:text="Total: 4599HUF"
+                tools:text="Total: 15.99€"
                 android:text="@{cartViewModel.cartTotalPrice}"
                 android:visibility="@{cartViewModel.emptyCart ? View.GONE : View.VISIBLE}"/>
 

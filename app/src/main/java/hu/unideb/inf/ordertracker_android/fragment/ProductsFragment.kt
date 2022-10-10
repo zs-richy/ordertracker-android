@@ -80,7 +80,7 @@ class ProductsFragment: Fragment() {
 
         binding.floatingCartLayout.btnCart.setOnClickListener {
             if (!cartViewModel.cart.value.isNullOrEmpty()) {
-                findNavController().navigate(R.id.action_products_fragment_to_cart_fragment)
+                findNavController().navigate(ProductsFragmentDirections.actionProductsFragmentToCartFragment())
             }
         }
 

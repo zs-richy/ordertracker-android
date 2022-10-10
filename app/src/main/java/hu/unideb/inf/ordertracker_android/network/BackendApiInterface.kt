@@ -17,9 +17,6 @@ interface BackendApiInterface {
     @POST("/api/order/new-order")
     suspend fun placeOrder(@Body placeOrderRequest: PlaceOrderRequest): Response<NewOrderResponse>
 
-    @GET("/api/order/orders")
-    suspend fun getOrders(): Response<OrdersResponse>
-
     @GET("/api/order/orders-no-join")
     suspend fun getOrdersNoJoin(): Response<OrdersResponse>
 

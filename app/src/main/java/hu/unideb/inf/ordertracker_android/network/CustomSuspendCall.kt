@@ -6,8 +6,11 @@ import kotlinx.coroutines.withContext
 import retrofit2.Response
 import java.lang.Exception
 
-open class CustomSuspendCall<T: Any, R: BaseResponse>(val genericRequest: T, val genericResponse: Class<R>, val suspendCall: suspend (T) -> (Response<R>)) {
-
+open class CustomSuspendCall<T : Any, R : BaseResponse>(
+    val genericRequest: T,
+    val genericResponse: Class<R>,
+    val suspendCall: suspend (T) -> (Response<R>)
+) {
 
     suspend fun callFunction(): R {
         try {
@@ -18,7 +21,10 @@ open class CustomSuspendCall<T: Any, R: BaseResponse>(val genericRequest: T, val
                     response = apiResponse.body() ?: genericResponse.newInstance()
                     response.succeeded = true
                 } else {
-                    response = NetworkUtils.parseErrorBody(apiResponse.errorBody()?.string(), genericResponse)
+                    response = NetworkUtils.parseErrorBody(
+                        apiResponse.errorBody().toString(),
+                        genericResponse
+                    )
                 }
             }
             return response

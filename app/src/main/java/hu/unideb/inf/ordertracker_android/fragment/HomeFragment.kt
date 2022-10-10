@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -81,10 +82,9 @@ class HomeFragment : Fragment() {
 
     private fun handleUserNavigation() {
         if (SharedPreferencesHandler.getUsername(requireContext()) != null) {
-            val args = bundleOf("redirectToLogin" to true)
-            findNavController().navigate(R.id.action_home_fragment_to_authentication_fragment, args)
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAuthenticationFragment().setRedirectToLogin(true))
         } else {
-            findNavController().navigate(R.id.action_home_fragment_to_authentication_fragment)
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAuthenticationFragment())
         }
     }
 

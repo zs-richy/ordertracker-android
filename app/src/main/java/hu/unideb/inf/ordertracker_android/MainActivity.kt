@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import hu.unideb.inf.ordertracker_android.databinding.ActivityMainBinding
 import hu.unideb.inf.ordertracker_android.databinding.DrawerHeaderBinding
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var navViewHeaderBinding: DrawerHeaderBinding
 
-    fun navController() =  findNavController(R.id.nav_host_fragment)
+    fun navController() = findNavController(R.id.nav_host_fragment)
 
     val userViewModel: UserViewModel by viewModels()
 
@@ -78,7 +77,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.navView.fitsSystemWindows = false
 
-        binding.navView.setNavigationItemSelectedListener { menuItem -> handleMenuItemSelected(menuItem)}
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            handleMenuItemSelected(
+                menuItem
+            )
+        }
 
         navViewHeaderBinding = DrawerHeaderBinding.inflate(layoutInflater)
 
@@ -95,7 +98,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleMenuItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.drawer_logout -> {
-                navController().navigate(R.id.action_global_to_auth_fragment)
+                navController().navigate(NavigationDirections.actionGlobalToAuthFragment())
             }
             else -> {
                 navController().popBackStack(R.id.home_fragment, false)
@@ -121,7 +124,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(authFailedEvent: AuthFailedEvent) {
+    fun onAuthFailed(authFailedEvent: AuthFailedEvent) {
         WidgetUtils.createMessageDialog(this, "Failed", "Login expired!")
 //        AlertDialog.Builder(this)
 //            .setMessage("Login expired!")
@@ -130,7 +133,8 @@ class MainActivity : AppCompatActivity() {
 //            }
 //            .create()
 //            .show()
-        val action = AuthenticationFragmentDirections.actionGlobalToAuthFragment().setRedirectToLogin(true)
+        val action =
+            AuthenticationFragmentDirections.actionGlobalToAuthFragment().setRedirectToLogin(true)
         navController().navigate(action)
     }
 
